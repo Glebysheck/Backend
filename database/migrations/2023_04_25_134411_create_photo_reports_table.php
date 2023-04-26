@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServicesTable extends Migration
+class CreatePhotoReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,16 @@ class CreateServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('photo_reports', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
-            $table->string('instruction_reference')->nullable();
+            $table->string('image_reference');
+            $table->unsignedBigInteger('list_services_id');
+            $table->foreign('list_services_id')
+                ->references('id')
+                ->on('list_services')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
 
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +36,6 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('photo_reports');
     }
 }

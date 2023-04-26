@@ -10,22 +10,9 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $users = User::all();
-        $usersRequest = $request->post();
-        foreach ($users as $user) {
-            if ($user['login'] == $usersRequest['login'] and Hash::check($usersRequest['password'], $user['password'])) {
-                return $user->toJson();
-            }
-        }
-        return response('Hui', 403);
-    }
-
-    public function get_token()
-    {
-        $user = User::find(2);
-        return response($user['remember_token'], 200);
+        return User::all();
     }
 
     public function create(Request $request)

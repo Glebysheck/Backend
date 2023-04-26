@@ -16,10 +16,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/user', 'AuthenticationController@index');
 
+Route::post('/add_equipment', 'EquipmentController@create');
+
 Route::get('/check_token', 'CheckController@index');
 
 Route::get('/create_user', 'UserController@create');
 
 Route::get('/create_role', 'RoleController@create');
+
+Route::get('/create_status_equipment', 'StatusEquipmentController@create');
+
+Route::get('/equipment', 'EquipmentController@index');
 
 

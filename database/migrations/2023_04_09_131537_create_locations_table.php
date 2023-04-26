@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateLocationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,16 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses_part', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
-            $table->string('status_name');
+            $table->string('name_location');
+            $table->unsignedBigInteger('parent_location_id');
+            $table->foreign('parent_location_id')
+                ->references('id')
+                ->on('locations')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
 
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +36,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('locations');
     }
 }

@@ -23,7 +23,12 @@ class CreateEquipmentTable extends Migration
                 ->on('equipment')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('frequency_service')->nullable();
+            $table->unsignedBigInteger('service_id')->nullable();
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

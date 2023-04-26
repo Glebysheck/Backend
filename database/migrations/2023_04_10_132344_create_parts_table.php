@@ -19,10 +19,10 @@ class CreatePartsTable extends Migration
             $table->date('date_mounting')->nullable();
             $table->date('date_remove')->nullable();
             $table->text('reason_remove')->nullable();
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')
+            $table->unsignedBigInteger('status_part_id');
+            $table->foreign('status_part_id')
                 ->references('id')
-                ->on('statuses')
+                ->on('statuses_part')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->unsignedBigInteger('position_equipment_id')->nullable();

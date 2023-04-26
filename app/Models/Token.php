@@ -21,7 +21,7 @@ class Token extends Model
             "password" => $password
         );
 
-        $token_lifetime = 300;
+        $token_lifetime = 3000;
 
         $issued_at = time();
 

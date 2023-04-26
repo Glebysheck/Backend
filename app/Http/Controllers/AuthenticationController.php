@@ -24,6 +24,6 @@ class AuthenticationController extends Controller
                 return $user->toJson();
             }
         }
-        return response('Hui', 403);
+        return response('Unauthorized', 403);
     }
 }

@@ -24,10 +24,10 @@ class CreatePositionEquipmentTable extends Migration
                 ->onDelete('cascade');
             $table->date('date_last_service_id')->nullable();
             $table->date('date_planned_service_id')->nullable();
-            $table->unsignedBigInteger('service_id')->nullable();
-            $table->foreign('service_id')
+            $table->unsignedBigInteger('status_equipment_id')->nullable();
+            $table->foreign('status_equipment_id')
                 ->references('id')
-                ->on('services')
+                ->on('status_equipment')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

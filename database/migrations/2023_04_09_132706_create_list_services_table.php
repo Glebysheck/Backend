@@ -21,13 +21,12 @@ class CreateListServicesTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')
+            $table->unsignedBigInteger('position_equipment_id');
+            $table->foreign('position_equipment_id')
                 ->references('id')
-                ->on('services')
+                ->on('position_equipment')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->boolean('planned')->default(0)->change();
             $table->date('date_service')->nullable();
 
             $table->timestamps();

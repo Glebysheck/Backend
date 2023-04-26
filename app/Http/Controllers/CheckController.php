@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -12,20 +13,19 @@ class CheckController extends Controller
     public function index(Request $request)
     {
         if ($request->hasHeader('Authorization')){
-//            try {
-//                $jwt = JWT::decode($request->header('Authorization'),
-//                    new Key("sixty-nine-secret", 'HS256'));
-//                $jwt = response($jwt, 200);
-//            }
-//            catch (Exception $e) {
-//                $jwt = response('', 401);
-//            }
-            $jwt = response('Good', 200);
+            try {
+                $jwt = JWT::decode($request->bearerToken(),
+                    new Key("sixty-nine-secret", 'HS256'));
+                $res = json_decode(json_encode($jwt), true);
+            }
+            catch (Exception $e) {
+                $res = response($e, 401);
+            }
         }
         else
         {
-            $jwt = response('Incorrect', 401);
+            $res = response('Unauthorized', 403);
         }
-        return $jwt;
+        return $res;
     }
 }
