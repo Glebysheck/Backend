@@ -18,6 +18,8 @@ Route::post('/user', 'AuthenticationController@index');
 
 Route::post('/add_equipment', 'EquipmentController@create');
 
+Route::post('/add_position_equipment', 'PositionEquipmentController@create');
+
 Route::get('/check_token', 'CheckController@index');
 
 Route::get('/create_user', 'UserController@create');

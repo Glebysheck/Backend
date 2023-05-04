@@ -11,4 +11,9 @@ class Equipment extends Model
     use SoftDeletes;
     use HasFactory;
     protected $guarded = [];
+
+    public function lists()
+    {
+        return $this->hasMany(PositionEquipment::class);
+    }
 }

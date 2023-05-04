@@ -12,7 +12,7 @@ class EquipmentController extends Controller
 {
     public function index()
     {
-        $equipments = Equipment::whereNull('parent_equipment_id')->get();
+        $equipments = Equipment::with('lists')->whereNull('parent_equipment_id')->get();
         return EquipmentResource::collection($equipments);
     }
 
@@ -23,12 +23,13 @@ class EquipmentController extends Controller
         if ($equipment['service'] == true)
         {
             Service::create([]);
+            $path = $request->file('image')->store('image_plan_reference');
             Equipment::create([
                 'equipment_name' => $equipment['equipment_name'],
-                'image_plan_reference' => $equipment['image_plan_reference'],
-                'parent_equipment_id' => $equipment['parent_equipment_id'],
+                'image_plan_reference' => $path,
                 'service_id' => Service::all()->last()->id,
             ]);
+            dd($path);
         }
         else
         {
@@ -41,5 +42,6 @@ class EquipmentController extends Controller
 //        {
 //
 //        }
+        return response('Null', 4030);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EquipmentResource extends JsonResource
+class PositionEquipmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class EquipmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'equipment_name' => $this->equipment_name,
-            'image_plan_reference' => "http://192.168.0.117:8080$this->image_plan_reference",
-            'parent_equipment_id' => $this->parent_equipment_id,
-            'list_position' => PositionEquipmentResource::collection($this->lists),
+            'group_id' => $this->group_id,
+            'position' => $this->position,
+            'equipment_id' => $this->equipment_id,
         ];
     }
 }
