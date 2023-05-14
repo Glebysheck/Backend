@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EquipmentResource extends JsonResource
+class EquipmentChildResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class EquipmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'position_on_plan' => $this->position_on_plan,
             'equipment_name' => $this->equipment_name,
-            'image_plan_reference' => isset($this->image_plan_reference) ?
-                ("http://192.168.0.117:8080" . $this->image_plan_reference) : $this->image_plan_reference,
-            'list_position' => PositionEquipmentResource::collection($this->lists),
+            'service' => !(is_null($this->service_id)),
+            'have_equipment' => (bool)$this->have_equipment,
         ];
     }
 }
