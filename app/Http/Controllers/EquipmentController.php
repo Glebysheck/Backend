@@ -126,6 +126,7 @@ class EquipmentController extends Controller
 
     public function delete(Request $request)
     {
-        Equipment::destroy($request->post()['id']);
+        Equipment::destroy($request->all()['id']);
+        $equipments = Equipment::where('parent_equipment_id', $request->all()['id'])->delete();
     }
 }
