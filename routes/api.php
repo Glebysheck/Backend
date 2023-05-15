@@ -18,7 +18,7 @@ Route::post('/user', 'AuthenticationController@index');
 
 Route::post('/add_equipment', 'EquipmentController@create');
 
-Route::post('/save_changes', 'EquipmentController@save_changes');
+Route::post('/save_changes', 'EquipmentController@change_child');
 
 Route::post('/add_equipment_child', 'EquipmentController@create_child');
 
@@ -41,6 +41,8 @@ Route::get('/equipment', 'EquipmentController@index');
 Route::get('/equipment_child', 'EquipmentController@show');
 
 Route::get('/equipment_data', 'EquipmentController@show_parent');
+
+Route::delete('/delete_equipment', 'EquipmentController@delete');
 
 
 

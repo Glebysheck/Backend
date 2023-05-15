@@ -77,6 +77,30 @@ class EquipmentController extends Controller
         }
     }
 
+    public function change_child(Request $request)
+    {
+        $equipment_change = $request->post();
+
+        $equipment = Equipment::find($equipment_change['id']);
+
+        if ($equipment['service'])
+        {
+            Service::create([]);
+            $equipment->position_on_plan = $equipment_change['position_on_plan'];
+            $equipment->equipment_name = $equipment_change['equipment_name'];
+            $equipment->service_id = Service::all()->last()->id;
+            $equipment->have_equipment = $equipment_change['have_equipment'];
+        }
+        else
+        {
+            $equipment->position_on_plan = $equipment_change['position_on_plan'];
+            $equipment->equipment_name = $equipment_change['equipment_name'];
+            $equipment->have_equipment = $equipment_change['have_equipment'];
+        }
+
+        $equipment->save();
+    }
+
     public function save_image(Request $request)
     {
         $equipment_change = $request->post();
@@ -98,5 +122,10 @@ class EquipmentController extends Controller
         $equipment->equipment_name = $equipment_change['equipment_name'];
 
         $equipment->save();
+    }
+
+    public function delete(Request $request)
+    {
+        Equipment::destroy($request->post()['id']);
     }
 }
