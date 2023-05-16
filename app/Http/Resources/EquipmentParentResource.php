@@ -18,7 +18,7 @@ class EquipmentParentResource extends JsonResource
             'id' => $this->id,
             'equipment_name' => $this->equipment_name,
             'image_plan_reference' => isset($this->image_plan_reference) ?
-                ("http://192.168.0.117:8080" . $this->image_plan_reference) : $this->image_plan_reference,
+                ("http://195.161.68.107:8000" . $this->image_plan_reference) : $this->image_plan_reference,
         ];
     }
 }
