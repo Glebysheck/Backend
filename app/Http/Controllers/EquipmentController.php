@@ -30,6 +30,15 @@ class EquipmentController extends Controller
         return new EquipmentParentResource($equipment);
     }
 
+    public function show_image()
+    {
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Access-Control-Allow-Origin' => 'application/pdf',
+        ];
+        return response()->file('storage/image_plan_reference/mPm0YPlJ2RGh2K9wCL8eY53uqrzryMF6BohvV2we.jpg');
+    }
+
     public function create(Request $request)
     {
         $equipment = $request->post();
@@ -83,19 +92,17 @@ class EquipmentController extends Controller
 
         $equipment = Equipment::find($equipment_change['id']);
 
-        if ($equipment['service'])
+        $equipment->position_on_plan = $equipment_change['position_on_plan'];
+        $equipment->equipment_name = $equipment_change['equipment_name'];
+        $equipment->have_equipment = $equipment_change['have_equipment'];
+
+        if ($equipment_change['service'])
         {
-            Service::create([]);
-            $equipment->position_on_plan = $equipment_change['position_on_plan'];
-            $equipment->equipment_name = $equipment_change['equipment_name'];
-            $equipment->service_id = Service::all()->last()->id;
-            $equipment->have_equipment = $equipment_change['have_equipment'];
+            $equipment->service_id = Service::create([])->id;
         }
         else
         {
-            $equipment->position_on_plan = $equipment_change['position_on_plan'];
-            $equipment->equipment_name = $equipment_change['equipment_name'];
-            $equipment->have_equipment = $equipment_change['have_equipment'];
+            $equipment->service_id = null;
         }
 
         $equipment->save();
