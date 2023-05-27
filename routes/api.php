@@ -28,6 +28,18 @@ Route::post('/change_name', 'EquipmentController@save_name');
 
 Route::post('/add_position_equipment', 'PositionEquipmentController@create');
 
+Route::post('/add_location', 'LocationController@create');
+
+Route::post('/split_location', 'LocationController@split_location');
+
+Route::post('/change_location', 'LocationController@change');
+
+Route::get('/location', 'LocationController@index');
+
+Route::delete('/delete_location', 'LocationController@delete');
+
+Route::get('/parent_location', 'LocationController@show');
+
 Route::get('/check_token', 'CheckController@index');
 
 Route::get('/create_user', 'UserController@create');
