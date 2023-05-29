@@ -28,6 +28,20 @@ Route::post('/change_name', 'EquipmentController@save_name');
 
 Route::post('/add_position_equipment', 'PositionEquipmentController@create');
 
+Route::get('/position_equipment', 'PositionEquipmentController@index');
+
+Route::post('/add_to_location', 'PositionEquipmentController@add_to_location');
+
+Route::get('/show_by_location', 'PositionEquipmentController@show_by_location');
+
+Route::get('/show_by_equipment', 'PositionEquipmentController@show');
+
+Route::post('/remove_from_location', 'PositionEquipmentController@remove_from_location');
+
+Route::post('/change_position', 'PositionEquipmentController@change');
+
+Route::delete('/delete_position', 'PositionEquipmentController@delete');
+
 Route::post('/add_location', 'LocationController@create');
 
 Route::post('/split_location', 'LocationController@split_location');
@@ -57,7 +71,5 @@ Route::get('/equipment_data', 'EquipmentController@show_parent');
 Route::delete('/delete_equipment', 'EquipmentController@delete');
 
 Route::get('/file', 'EquipmentController@show_image');
-
-
 
 

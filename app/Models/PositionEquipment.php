@@ -17,13 +17,14 @@ class PositionEquipment extends Model
         PositionEquipment::create([
             'group_id' => $group_id,
             'equipment_id' => $id,
+            'date_last_service_id' => date('Y-m-d'),
         ]);
 
         $equipments = Equipment::where('parent_equipment_id', $id)->get('id')->toArray();
 
         foreach ($equipments as $equipment)
         {
-            self::recursive($group_id, $equipment);
+            self::recursive($group_id, $equipment['id']);
         }
     }
 }

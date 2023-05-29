@@ -54,9 +54,4 @@ class LocationController extends Controller
         Location::destroy($request->all()['id']);
         Location::where('parent_location_id', $request->all()['id'])->delete();
     }
-
-    public function add_equip_pos(Request $request)
-    {
-
-    }
 }
