@@ -15,8 +15,7 @@ class AddRowLocation extends Migration
     {
         Schema::table('locations', function (Blueprint $table) {
             $table->boolean('have_child_location')->default(false)
-                ->after('parent_location_id')
-                ->change();
+                ->after('parent_location_id');
         });
     }
 
