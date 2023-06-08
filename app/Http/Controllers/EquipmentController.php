@@ -6,6 +6,8 @@ use App\Http\Resources\EquipmentChildResource;
 use App\Http\Resources\EquipmentParentResource;
 use App\Http\Resources\EquipmentResource;
 use App\Models\Equipment;
+use App\Models\FilesByEquipment;
+use App\Models\PositionEquipment;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,34 +32,16 @@ class EquipmentController extends Controller
         return new EquipmentParentResource($equipment);
     }
 
-    public function show_image()
-    {
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Access-Control-Allow-Origin' => 'application/pdf',
-        ];
-        return response()->file('storage/image_plan_reference/mPm0YPlJ2RGh2K9wCL8eY53uqrzryMF6BohvV2we.jpg');
-    }
-
     public function create(Request $request)
     {
         $equipment = $request->post();
-        if (is_null($request->file('image')))
-        {
-            $path = null;
-        }
-        else
-        {
-            $path = $request->file('image')->store('image_plan_reference', ['disk' => 'public']);
-        }
 
-        Equipment::create([
+        $equip = Equipment::create([
             'equipment_name' => $equipment['equipment_name'],
             'have_equipment' => 1,
-            'image_plan_reference' => isset($path) ? "/storage/" . $path : $path,
         ]);
 
-        return Equipment::all()->last()->id;
+        return new EquipmentParentResource($equip);
     }
 
     public function create_child(Request $request)
@@ -135,5 +119,7 @@ class EquipmentController extends Controller
     {
         Equipment::destroy($request->all()['id']);
         Equipment::where('parent_equipment_id', $request->all()['id'])->delete();
+        PositionEquipment::where('equipment_id', $request->all()['id'])->delete();
+        FilesByEquipment::where('equipment_id', $request->all()['id'])->delete();
     }
 }
