@@ -20,6 +20,6 @@ class FilesByEquipmentController extends Controller
 
     public function delete(Request $request)
     {
-
+        FilesByEquipment::destroy($request->all()['id']);
     }
 }

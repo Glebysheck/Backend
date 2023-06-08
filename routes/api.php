@@ -69,3 +69,7 @@ Route::get('/equipment_child', 'EquipmentController@show');
 Route::get('/equipment_data', 'EquipmentController@show_parent');
 
 Route::delete('/delete_equipment', 'EquipmentController@delete');
+
+Route::post('/add_file', 'FilesByEquipment@create');
+
+Route::delete('/delete_file', 'FilesByEquipment@delete');
