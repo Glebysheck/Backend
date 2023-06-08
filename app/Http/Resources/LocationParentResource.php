@@ -17,6 +17,7 @@ class LocationParentResource extends JsonResource
         return [
             'id' => $this->id,
             'name_location' => $this->name_location,
+            'parent_location_id' => $this->parent_location_id,
         ];
     }
 }

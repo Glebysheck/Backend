@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\FilesByEquipment;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class EquipmentResource extends JsonResource
@@ -17,8 +18,7 @@ class EquipmentResource extends JsonResource
         return [
             'id' => $this->id,
             'equipment_name' => $this->equipment_name,
-            'image_plan_reference' => $this->image_plan_reference,
-            'list_position' => PositionEquipmentResource::collection($this->lists),
+            'list_image' => FilesByEquipmentResource::collection($this->lists),
         ];
     }
 }
