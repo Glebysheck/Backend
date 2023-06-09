@@ -22,8 +22,6 @@ Route::post('/save_changes', 'EquipmentController@change_child');
 
 Route::post('/add_equipment_child', 'EquipmentController@create_child');
 
-Route::post('/change_image', 'EquipmentController@save_image');
-
 Route::post('/change_name', 'EquipmentController@save_name');
 
 Route::post('/add_position_equipment', 'PositionEquipmentController@create');

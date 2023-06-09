@@ -41,7 +41,7 @@ class EquipmentController extends Controller
             'have_equipment' => 1,
         ]);
 
-        return new EquipmentParentResource($equip);
+        return $equip->id;
     }
 
     public function create_child(Request $request)
@@ -88,18 +88,6 @@ class EquipmentController extends Controller
         {
             $equipment->service_id = null;
         }
-
-        $equipment->save();
-    }
-
-    public function save_image(Request $request)
-    {
-        $equipment_change = $request->post();
-        $path = $request->file('image')->store('image_plan_reference', ['disk' => 'public']);
-
-        $equipment = Equipment::find($equipment_change['id']);
-
-        $equipment->image_plan_reference = "/storage/" . $path;
 
         $equipment->save();
     }
