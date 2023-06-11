@@ -36,9 +36,23 @@ class EquipmentController extends Controller
     {
         $equipment = $request->post();
 
+        if (is_null($request->file('image')))
+        {
+            $path = null;
+        }
+        else
+        {
+            $path = $request->file('image')->store('image_plan_reference', ['disk' => 'public']);
+        }
+
         $equip = Equipment::create([
             'equipment_name' => $equipment['equipment_name'],
             'have_equipment' => 1,
+        ]);
+
+        FilesByEquipment::create([
+            'equipment_id' => $equip->id,
+            'image_plan_reference' => isset($path) ? "/storage/" . $path : $path,
         ]);
 
         return $equip->id;

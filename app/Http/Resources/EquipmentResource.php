@@ -15,10 +15,19 @@ class EquipmentResource extends JsonResource
      */
     public function toArray($request)
     {
+        if (FilesByEquipment::where('equipment_id', $this->id)->first() != null)
+        {
+            return [
+                'id' => $this->id,
+                'equipment_name' => $this->equipment_name,
+                'image_plan_reference' => FilesByEquipment::select('image_plan_reference')
+                    ->where('equipment_id', $this->id)->first()->toArray()['image_plan_reference']
+            ];
+        }
         return [
             'id' => $this->id,
             'equipment_name' => $this->equipment_name,
-            'list_image' => FilesByEquipmentResource::collection($this->lists),
+            'image_plan_reference' => null
         ];
     }
 }

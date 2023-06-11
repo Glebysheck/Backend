@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Equipment;
+use App\Models\FilesByEquipment;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PositionEquipmentResource extends JsonResource
@@ -15,12 +16,26 @@ class PositionEquipmentResource extends JsonResource
      */
     public function toArray($request)
     {
+        if (FilesByEquipment::where('equipment_id', $this->equipment_id)->first() != null)
+        {
+            return [
+                'id' => $this->id,
+                'group_id' => $this->group_id,
+                'position' => $this->position,
+                'equipment_id' => $this->equipment_id,
+                'image' => FilesByEquipment::select('image_plan_reference')
+                    ->where('equipment_id', $this->equipment_id)
+                    ->first()
+                    ->toArray()['image_plan_reference'],
+                'equipment_name' => Equipment::find($this->equipment_id)->equipment_name,
+            ];
+        }
         return [
             'id' => $this->id,
             'group_id' => $this->group_id,
             'position' => $this->position,
             'equipment_id' => $this->equipment_id,
-            'image' => Equipment::find($this->equipment_id)->image_plan_reference,
+            'image' => null,
             'equipment_name' => Equipment::find($this->equipment_id)->equipment_name,
         ];
     }
