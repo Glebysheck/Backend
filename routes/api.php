@@ -71,3 +71,9 @@ Route::delete('/delete_equipment', 'EquipmentController@delete');
 Route::post('/add_file', 'FilesByEquipmentController@create');
 
 Route::delete('/delete_file', 'FilesByEquipmentController@delete');
+
+Route::post('/create_type_part', 'TypePartsController@create');
+
+Route::get('/type_parts', 'TypePartsController@index');
+
+Route::get('/type_part', 'TypePartsController@show');
