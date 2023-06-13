@@ -62,6 +62,14 @@ class TypePartsController extends Controller
             'name' => $type_part['name'],
             'manufacturer_id' => $manufacturer,
             'article_id' => $article,
+            'type_measure_units_id' => $request->has('type_measure_units_id') ?
+                $type_part['type_measure_units_id'] : null,
         ]);
+    }
+
+    public function delete(Request $request)
+    {
+        TypePart::destroy($request->all()['id']);
+        Part::where('type_parts_id', $request->all()['id'])->delete();
     }
 }

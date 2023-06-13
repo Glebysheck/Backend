@@ -54,10 +54,6 @@ Route::get('/parent_location', 'LocationController@show');
 
 Route::get('/check_token', 'CheckController@index');
 
-Route::get('/create_user', 'UserController@create');
-
-Route::get('/create_role', 'RoleController@create');
-
 Route::get('/create_status_equipment', 'StatusEquipmentController@create');
 
 Route::get('/equipment', 'EquipmentController@index');
@@ -77,3 +73,26 @@ Route::post('/create_type_part', 'TypePartsController@create');
 Route::get('/type_parts', 'TypePartsController@index');
 
 Route::get('/type_part', 'TypePartsController@show');
+
+Route::delete('/delete_type_part', 'TypePartsController@delete');
+
+Route::post('/create_part', 'PartController@create');
+
+Route::get('/parts', 'PartController@index');
+
+Route::get('/delete_part', 'PartController@delete');
+
+
+
+
+
+
+Route::get('/create_user', 'UserController@create');
+
+Route::get('/create_role', 'RoleController@create');
+
+Route::post('/create_status_part', 'StatusPartController@create');
+
+Route::post('/create_type_measure_units', 'TypeMeasureUnitsController@create');
+
+Route::post('/create_measure_units', 'MeasureUnitsController@create');
