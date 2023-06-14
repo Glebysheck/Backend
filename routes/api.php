@@ -74,6 +74,8 @@ Route::get('/type_parts', 'TypePartsController@index');
 
 Route::get('/type_part', 'TypePartsController@show');
 
+Route::post('/change_type_part', 'TypePartsController@change');
+
 Route::delete('/delete_type_part', 'TypePartsController@delete');
 
 Route::post('/create_part', 'PartController@create');
@@ -81,6 +83,8 @@ Route::post('/create_part', 'PartController@create');
 Route::get('/parts', 'PartController@index');
 
 Route::get('/delete_part', 'PartController@delete');
+
+Route::get('/group', 'SortController@index');
 
 
 

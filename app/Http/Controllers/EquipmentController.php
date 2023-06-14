@@ -11,6 +11,9 @@ use App\Models\PositionEquipment;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+use \PhpOffice\PhpWord\TemplateProcessor;
 
 class EquipmentController extends Controller
 {
@@ -43,6 +46,12 @@ class EquipmentController extends Controller
         else
         {
             $path = $request->file('image')->store('image_plan_reference', ['disk' => 'public']);
+            if (str_ends_with($path, 'c'))
+            {
+                shell_exec('sudo lowriter --convert-to docx' .
+                    Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix() . $path);
+            }
+            return $path;
         }
 
         $equip = Equipment::create([
