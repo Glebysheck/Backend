@@ -51,7 +51,6 @@ class EquipmentController extends Controller
                 shell_exec('sudo lowriter --convert-to docx' .
                     Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix() . $path);
             }
-            return $path;
         }
 
         $equip = Equipment::create([
