@@ -4,6 +4,13 @@ FROM php:7.4.18-fpm
 ARG user
 ARG uid
 
+RUN mkdir -p /usr/share/man/man1
+RUN dpkg --configure -a
+
+RUN apt-get update && apt-get install -y -f \
+    openjdk-11-jdk \
+    libreoffice 
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \

@@ -24,6 +24,14 @@ Route::post('/add_equipment_child', 'EquipmentController@create_child');
 
 Route::post('/change_name', 'EquipmentController@save_name');
 
+Route::get('/equipment', 'EquipmentController@index');
+
+Route::get('/equipment_child', 'EquipmentController@show');
+
+Route::get('/equipment_data', 'EquipmentController@show_parent');
+
+Route::delete('/delete_equipment', 'EquipmentController@delete');
+
 Route::post('/add_position_equipment', 'PositionEquipmentController@create');
 
 Route::get('/position_equipment', 'PositionEquipmentController@index');
@@ -56,14 +64,6 @@ Route::get('/check_token', 'CheckController@index');
 
 Route::get('/create_status_equipment', 'StatusEquipmentController@create');
 
-Route::get('/equipment', 'EquipmentController@index');
-
-Route::get('/equipment_child', 'EquipmentController@show');
-
-Route::get('/equipment_data', 'EquipmentController@show_parent');
-
-Route::delete('/delete_equipment', 'EquipmentController@delete');
-
 Route::post('/add_file', 'FilesByEquipmentController@create');
 
 Route::delete('/delete_file', 'FilesByEquipmentController@delete');
@@ -84,7 +84,19 @@ Route::get('/parts', 'PartController@index');
 
 Route::get('/delete_part', 'PartController@delete');
 
-Route::get('/group', 'SortController@index');
+Route::get('/groups', 'SortController@index');
+
+Route::get('/group', 'SortController@show');
+
+Route::post('/create_group', 'SortController@create');
+
+Route::post('/change_group', 'SortController@change');
+
+Route::delete('/delete_group', 'SortController@delete');
+
+Route::post('/add_file_by_type_part', 'FilesByPartController@create');
+
+Route::delete('/delete_file_by_type_part', 'FilesByPartController@delete');
 
 
 
@@ -100,3 +112,5 @@ Route::post('/create_status_part', 'StatusPartController@create');
 Route::post('/create_type_measure_units', 'TypeMeasureUnitsController@create');
 
 Route::post('/create_measure_units', 'MeasureUnitsController@create');
+
+Route::post('/fix_location', 'LocationController@fix');

@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Manufacturer;
 use App\Models\MeasureUnits;
 use App\Models\Part;
+use App\Models\Sort;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TypePartsResource extends JsonResource
@@ -34,14 +35,17 @@ class TypePartsResource extends JsonResource
             'price' => $this->price,
             'manufacturer' => !is_null($this->manufacturer_id) ?
                 Manufacturer::find($this->manufacturer_id)['manufacture_name'] : null,
-            'type_measure_units_id' => $this->type_measure_units_id,
-            'measurement_units' => is_null($this->type_measure_units_id) ?
-                'шт' : MeasureUnits::where('type_measure_units_id', $this->type_measure_units_id)
+            'type_measure_units_id' => Sort::find($this->sort_id)['type_measure_units_id'],
+            'measurement_units' => is_null(Sort::find($this->sort_id)['type_measure_units_id']) ?
+                'шт' : MeasureUnits::where('type_measure_units_id',
+                    Sort::find($this->sort_id)['type_measure_units_id'])
                     ->first()['name'],
-            'quantity' => is_null($this->type_measure_units_id) ?
+            'quantity' => is_null(Sort::find($this->sort_id)['type_measure_units_id']) ?
                 Part::where('type_parts_id', $this->id)->count() :
-                $quantity / MeasureUnits::where('type_measure_units_id', $this->type_measure_units_id)
+                $quantity / MeasureUnits::where('type_measure_units_id',
+                    Sort::find($this->sort_id)['type_measure_units_id'])
                     ->first()['correlation'],
+            'list_image' => FilesByPartResource::collection($this->lists),
         ];
     }
 }
