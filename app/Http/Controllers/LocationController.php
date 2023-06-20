@@ -40,6 +40,15 @@ class LocationController extends Controller
         $location->save();
     }
 
+    public function fix(Request $request)
+    {
+        $location = Location::find($request->post()['id']);
+
+        $location->have_child_location = false;
+
+        $location->save();
+    }
+
     public function change(Request $request)
     {
         $location = Location::find($request->post()['id']);
