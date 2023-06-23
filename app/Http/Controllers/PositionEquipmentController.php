@@ -69,7 +69,9 @@ class PositionEquipmentController extends Controller
 
     public function show_by_location(Request $request)
     {
-        $position_equipment = PositionEquipment::where('locations_id', $request->all()['locations_id'])->get();
+        $position_equipment = PositionEquipment::where('locations_id', $request->all()['locations_id'])
+            ->orderByRaw('-position_on_location DESC')
+            ->get();
         return PositionEquipmentResource::collection($position_equipment);
     }
 
@@ -80,6 +82,24 @@ class PositionEquipmentController extends Controller
         $location->position = $request->post()['position'];
 
         $location->save();
+    }
+
+
+    public function change_position_on_location(Request $request)
+    {
+        $position_equipment_change = $request->post()['positionsArr'];
+
+        $position_on_location = 1;
+
+        foreach ($position_equipment_change as $position)
+        {
+            $position_equipment = PositionEquipment::find($position['id']);
+
+            $position_equipment->position_on_location = $position_on_location;
+
+            $position_equipment->save();
+            $position_on_location++;
+        }
     }
 
     public function delete(Request $request)

@@ -46,6 +46,8 @@ Route::post('/remove_from_location', 'PositionEquipmentController@remove_from_lo
 
 Route::post('/change_position', 'PositionEquipmentController@change');
 
+Route::post('/change_position_on_location', 'PositionEquipmentController@change_position_on_location');
+
 Route::delete('/delete_position', 'PositionEquipmentController@delete');
 
 Route::post('/add_location', 'LocationController@create');

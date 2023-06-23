@@ -28,6 +28,7 @@ class PositionEquipmentResource extends JsonResource
                     ->first()
                     ->toArray()['image_plan_reference'],
                 'equipment_name' => Equipment::find($this->equipment_id)->equipment_name,
+                'position_on_location' => $this->position_on_location,
             ];
         }
         return [
@@ -37,6 +38,7 @@ class PositionEquipmentResource extends JsonResource
             'equipment_id' => $this->equipment_id,
             'image' => null,
             'equipment_name' => Equipment::find($this->equipment_id)->equipment_name,
+            'position_on_location' => $this->position_on_location,
         ];
     }
 }
