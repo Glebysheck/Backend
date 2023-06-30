@@ -84,7 +84,7 @@ Route::post('/create_part', 'PartController@create');
 
 Route::get('/parts', 'PartController@index');
 
-Route::get('/delete_part', 'PartController@delete');
+Route::delete('/delete_part', 'PartController@delete');
 
 Route::get('/groups', 'SortController@index');
 
@@ -99,6 +99,8 @@ Route::delete('/delete_group', 'SortController@delete');
 Route::post('/add_file_by_type_part', 'FilesByPartController@create');
 
 Route::delete('/delete_file_by_type_part', 'FilesByPartController@delete');
+
+Route::get('/manufacturers', 'ManufacturerController@index');
 
 
 

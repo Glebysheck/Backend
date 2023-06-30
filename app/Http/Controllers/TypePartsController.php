@@ -43,9 +43,16 @@ class TypePartsController extends Controller
 
         if ($type_part['manufacturer'] != null)
         {
-            $manufacturer = Manufacturer::create([
-                'manufacture_name' => $type_part['manufacturer']
-            ])['id'];
+            if (Manufacturer::where('manufacture_name', $type_part['manufacturer'])->exists())
+            {
+                $manufacturer = Manufacturer::where('manufacture_name', $type_part['manufacturer'])->first()['id'];
+            }
+            else
+            {
+                $manufacturer = Manufacturer::create([
+                    'manufacture_name' => $type_part['manufacturer']
+                ])['id'];
+            }
         }
         else
             $manufacturer = null;
@@ -88,12 +95,19 @@ class TypePartsController extends Controller
         {
             $type_part->price = $type_part_change['price'];
         }
-        elseif ($request->has('manufacturer') and
-            !(Manufacturer::where('manufacture_name', $type_part_change['manufacturer'])->exists()))
+        elseif ($request->has('manufacturer'))
         {
-            $type_part->manufacturer_id = Manufacturer::create([
-                'manufacture_name' => $type_part_change['manufacturer']
-            ])['id'];
+            if (Manufacturer::where('manufacture_name', $type_part_change['manufacturer'])->exists())
+            {
+                $type_part->manufacturer_id = Manufacturer::where('manufacture_name', $type_part['manufacturer'])
+                    ->first()['id'];
+            }
+            else
+            {
+                $type_part->manufacturer_id = Manufacturer::create([
+                    'manufacture_name' => $type_part_change['manufacturer']
+                ])['id'];
+            }
         }
 
         $type_part->save();

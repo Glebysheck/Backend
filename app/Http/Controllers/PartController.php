@@ -31,11 +31,14 @@ class PartController extends Controller
         }
         else
         {
-            Part::create([
-                'date_admission' => date('Y-m-d'),
-                'type_parts_id' => $part['type_parts_id'],
-                'status_part_id' => 1,
-            ]);
+            for ($i = 1; $i <= $part['units']; $i++)
+            {
+                Part::create([
+                    'date_admission' => date('Y-m-d'),
+                    'type_parts_id' => $part['type_parts_id'],
+                    'status_part_id' => 1,
+                ]);
+            }
         }
 
     }
