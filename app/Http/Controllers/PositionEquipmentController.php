@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PositionEquipmentDetailResource;
 use App\Http\Resources\PositionEquipmentResource;
 use App\Models\Equipment;
 use App\Models\PositionEquipment;
@@ -15,6 +16,9 @@ class PositionEquipmentController extends Controller
         $position_equipment = $request->post();
 
         $group_id = Str::random(9);
+
+        while (PositionEquipment::where('group_id', $group_id)->exists())
+            $group_id = Str::random(9);
 
         PositionEquipment::create([
             'group_id' => $group_id,
@@ -43,6 +47,20 @@ class PositionEquipmentController extends Controller
     {
         $position_equipment = PositionEquipment::where('equipment_id', $request->all()['equipment_id'])->get();
         return PositionEquipmentResource::collection($position_equipment);
+    }
+
+    public function detail_show(Request $request)
+    {
+        $detail_position = array();
+        foreach (Equipment::where('parent_equipment_id', PositionEquipment::find($request->all()['id'])['equipment_id'])
+                     ->get()
+                     ->toArray()
+                 as $position)
+        {
+            $detail_position[] = PositionEquipmentDetailResource::collection(PositionEquipment::where('equipment_id', $position['id'])
+                ->where('group_id', PositionEquipment::find($request->all()['id'])['group_id'])->get());
+        }
+        return $detail_position;
     }
 
     public function add_to_location(Request $request)
