@@ -68,26 +68,35 @@ class EquipmentController extends Controller
 
     public function create_child(Request $request)
     {
-        $equipment = $request->post();
+        $equipment_req = $request->post();
 
-        if ($equipment['service'])
+        if ($equipment_req['service'])
         {
             Service::create([]);
-            Equipment::create([
-                'position_on_plan' => $equipment['position_on_plan'],
-                'equipment_name' => $equipment['equipment_name'],
-                'parent_equipment_id' => $equipment['parent_equipment_id'],
+            $equipment = Equipment::create([
+                'position_on_plan' => $equipment_req['position_on_plan'],
+                'equipment_name' => $equipment_req['equipment_name'],
+                'parent_equipment_id' => $equipment_req['parent_equipment_id'],
                 'service_id' => Service::all()->last()->id,
-                'have_equipment' => $equipment['have_equipment'],
+                'have_equipment' => $equipment_req['have_equipment'],
             ]);
         }
         else
         {
-            Equipment::create([
-                'position_on_plan' => $equipment['position_on_plan'],
-                'equipment_name' => $equipment['equipment_name'],
-                'parent_equipment_id' => $equipment['parent_equipment_id'],
-                'have_equipment' => $equipment['have_equipment'],
+            $equipment = Equipment::create([
+                'position_on_plan' => $equipment_req['position_on_plan'],
+                'equipment_name' => $equipment_req['equipment_name'],
+                'parent_equipment_id' => $equipment_req['parent_equipment_id'],
+                'have_equipment' => $equipment_req['have_equipment'],
+            ]);
+        }
+
+        foreach (PositionEquipment::where('equipment_id', $equipment_req['parent_equipment_id'])->get() as $position)
+        {
+            PositionEquipment::create([
+                'group_id' => $position['group_id'],
+                'equipment_id' => $equipment->id,
+                'date_last_service_id' => date('Y-m-d'),
             ]);
         }
     }

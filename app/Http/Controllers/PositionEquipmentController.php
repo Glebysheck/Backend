@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PositionEquipmentDetailResource;
+use App\Http\Resources\PositionEquipmentParentResource;
 use App\Http\Resources\PositionEquipmentResource;
 use App\Models\Equipment;
 use App\Models\PositionEquipment;
@@ -61,6 +62,12 @@ class PositionEquipmentController extends Controller
                 ->where('group_id', PositionEquipment::find($request->all()['id'])['group_id'])->get());
         }
         return $detail_position;
+    }
+
+    public function show_parent(Request $request)
+    {
+        $position_equipment = PositionEquipment::find($request->all()['id']);
+        return new PositionEquipmentParentResource($position_equipment);
     }
 
     public function add_to_location(Request $request)

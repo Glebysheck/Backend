@@ -44,6 +44,8 @@ Route::get('/show_by_equipment', 'PositionEquipmentController@show');
 
 Route::get('/detail_show', 'PositionEquipmentController@detail_show');
 
+Route::get('/show_parent', 'PositionEquipmentController@show_parent');
+
 Route::post('/remove_from_location', 'PositionEquipmentController@remove_from_location');
 
 Route::post('/change_position', 'PositionEquipmentController@change');
