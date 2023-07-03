@@ -52,13 +52,13 @@ class PositionEquipmentController extends Controller
 
     public function detail_show(Request $request)
     {
-        $detail_position = array();
+        $detail_position = [];
         foreach (Equipment::where('parent_equipment_id', PositionEquipment::find($request->all()['id'])['equipment_id'])
                      ->get()
                      ->toArray()
                  as $position)
         {
-            $detail_position[] = PositionEquipmentDetailResource::collection(PositionEquipment::where('equipment_id', $position['id'])
+            $detail_position['data'][] = PositionEquipmentDetailResource::collection(PositionEquipment::where('equipment_id', $position['id'])
                 ->where('group_id', PositionEquipment::find($request->all()['id'])['group_id'])->get());
         }
         return $detail_position;
