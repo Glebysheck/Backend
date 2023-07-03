@@ -58,8 +58,11 @@ class PositionEquipmentController extends Controller
                      ->toArray()
                  as $position)
         {
-            $detail_position['data'][] = PositionEquipmentDetailResource::collection(PositionEquipment::where('equipment_id', $position['id'])
-                ->where('group_id', PositionEquipment::find($request->all()['id'])['group_id'])->get());
+            foreach (PositionEquipmentDetailResource::collection(PositionEquipment::where('equipment_id', $position['id'])
+                ->where('group_id', PositionEquipment::find($request->all()['id'])['group_id'])->get()) as $p)
+            {
+                $detail_position['data'][] = $p;
+            }
         }
         return $detail_position;
     }
