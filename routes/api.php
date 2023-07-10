@@ -106,6 +106,24 @@ Route::delete('/delete_file_by_type_part', 'FilesByPartController@delete');
 
 Route::get('/manufacturers', 'ManufacturerController@index');
 
+Route::post('/create_tool', 'ListToolsController@create');
+
+Route::get('/show_list_tools', 'ListToolsController@show');
+
+Route::get('/show_tools', 'ListToolsController@index');
+
+Route::get('/show_details', 'ListDetailsController@index');
+
+Route::post('/create_detail', 'ListDetailsController@create');
+
+Route::get('/show_list_details', 'ListDetailsController@show');
+
+Route::get('/show_consumables', 'ListConsumablesController@index');
+
+Route::post('/create_consumable', 'ListConsumablesController@create');
+
+Route::get('/show_list_consumables', 'ListConsumablesController@show');
+
 
 
 
