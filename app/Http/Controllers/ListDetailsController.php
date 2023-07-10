@@ -44,4 +44,10 @@ class ListDetailsController extends Controller
             'detail_id' => $detail['id'],
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        Detail::destroy($request->all()['id']);
+        ListDetails::where('detail_id', $request->all()['id'])->delete();
+    }
 }

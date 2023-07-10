@@ -46,4 +46,10 @@ class ListToolsController extends Controller
             'tool_id' => $tool['id'],
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        Tool::destroy($request->all()['id']);
+        ListTools::where('tool_id', $request->all()['id'])->delete();
+    }
 }

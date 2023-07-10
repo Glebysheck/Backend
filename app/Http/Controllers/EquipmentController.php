@@ -136,17 +136,18 @@ class EquipmentController extends Controller
 
     public function delete(Request $request)
     {
-        $this->recursive_delete($request->all('id'));
+        $this->recursive_delete($request->all()['id']);
     }
 
     public function recursive_delete($id)
     {
-        Equipment::destroy($id);
         foreach (Equipment::where('parent_equipment_id', $id)->get() as $child_equipment)
         {
             $this->recursive_delete($child_equipment['id']);
         }
         FilesByEquipment::where('equipment_id', $id)->delete();
         PositionEquipment::where('equipment_id', $id)->delete();
+        Service::destroy(Equipment::find($id)['service_id']);
+        Equipment::destroy($id);
     }
 }

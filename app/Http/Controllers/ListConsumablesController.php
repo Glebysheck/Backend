@@ -44,4 +44,10 @@ class ListConsumablesController extends Controller
             'сonsumables_id' => $consumable['id'],
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        Consumable::destroy($request->all()['id']);
+        ListConsumables::where('сonsumables_id', $request->all()['id'])->delete();
+    }
 }

@@ -112,17 +112,23 @@ Route::get('/show_list_tools', 'ListToolsController@show');
 
 Route::get('/show_tools', 'ListToolsController@index');
 
+Route::delete('/delete_tool', 'ListToolsController@delete');
+
 Route::get('/show_details', 'ListDetailsController@index');
 
 Route::post('/create_detail', 'ListDetailsController@create');
 
 Route::get('/show_list_details', 'ListDetailsController@show');
 
+Route::delete('/delete_detail', 'ListDetailsController@delete');
+
 Route::get('/show_consumables', 'ListConsumablesController@index');
 
 Route::post('/create_consumable', 'ListConsumablesController@create');
 
 Route::get('/show_list_consumables', 'ListConsumablesController@show');
+
+Route::delete('/delete_consumable', 'ListConsumablesController@delete');
 
 
 
