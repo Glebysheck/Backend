@@ -11,4 +11,9 @@ class Service extends Model
     use SoftDeletes;
     use HasFactory;
     protected $guarded = [];
+
+    public function lists()
+    {
+        return $this->hasMany(InstructionReference::class);
+    }
 }

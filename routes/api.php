@@ -130,6 +130,10 @@ Route::get('/show_list_consumables', 'ListConsumablesController@show');
 
 Route::delete('/delete_consumable', 'ListConsumablesController@delete');
 
+Route::post('/add_file_in_service', 'InstructionReferenceController@create');
+
+Route::get('/show_service', 'ServiceController@index');
+
 
 
 
