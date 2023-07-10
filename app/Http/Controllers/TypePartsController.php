@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PartsByServiceResource;
 use App\Http\Resources\TypePartsResource;
 use App\Models\Article;
 use App\Models\Manufacturer;
@@ -35,6 +36,13 @@ class TypePartsController extends Controller
     {
         $type_part = TypePart::find($request->all()['id']);
         return new TypePartsResource($type_part);
+    }
+
+    public function show_by_service()
+    {
+        $type_parts = TypePart::all();
+        return PartsByServiceResource::collection($type_parts);
+
     }
 
     public function create(Request $request)

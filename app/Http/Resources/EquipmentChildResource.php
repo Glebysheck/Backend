@@ -19,6 +19,7 @@ class EquipmentChildResource extends JsonResource
             'position_on_plan' => $this->position_on_plan,
             'equipment_name' => $this->equipment_name,
             'service' => !(is_null($this->service_id)),
+            'service_id' => $this->service_id,
             'have_equipment' => (bool)$this->have_equipment,
         ];
     }
