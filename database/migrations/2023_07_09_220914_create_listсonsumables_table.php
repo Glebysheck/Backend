@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListсonsumablesTable extends Migration
+class CreateListConsumablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateListсonsumablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('listсonsumables', function (Blueprint $table) {
+        Schema::create('list_consumables', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')
@@ -21,10 +21,10 @@ class CreateListсonsumablesTable extends Migration
                 ->on('services')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('сonsumables_id');
-            $table->foreign('сonsumables_id')
+            $table->unsignedBigInteger('consumables_id');
+            $table->foreign('consumables_id')
                 ->references('id')
-                ->on('сonsumables')
+                ->on('consumables')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -40,6 +40,6 @@ class CreateListсonsumablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('listсonsumables');
+        Schema::dropIfExists('list_consumables');
     }
 }

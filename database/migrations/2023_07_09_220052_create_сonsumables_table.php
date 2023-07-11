@@ -13,7 +13,7 @@ class CreateConsumablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('сonsumables', function (Blueprint $table) {
+        Schema::create('consumables', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('sort_id');
             $table->foreign('sort_id')
@@ -35,6 +35,6 @@ class CreateConsumablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('сonsumables');
+        Schema::dropIfExists('consumables');
     }
 }

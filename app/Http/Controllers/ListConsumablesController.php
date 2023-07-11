@@ -26,7 +26,7 @@ class ListConsumablesController extends Controller
         $data = [];
         foreach (ListConsumables::where('service_id', $request->all()['service_id'])->get() as $detail)
         {
-            $data['data'][] = new ConsumableResource(Consumable::find($detail['detail_id']));
+            $data['data'][] = new ConsumableResource(Consumable::find($detail['consumables_id']));
         }
         return $data;
     }
