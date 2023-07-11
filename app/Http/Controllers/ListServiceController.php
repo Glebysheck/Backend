@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PartsByServiceResource;
 use App\Models\ListService;
+use App\Models\MeasureUnits;
 use App\Models\Part;
 use App\Models\Sort;
 use App\Models\TypePart;
@@ -35,6 +36,16 @@ class ListServiceController extends Controller
 
             $detail->list_services_id = $part['list_services_id'];
             $detail->date_mounting = date('Y-m-d');
+        }
+        else
+        {
+            Part::create([
+                'date_admission' => date('Y-m-d'),
+                'type_parts_id' => $part['type_parts_id'],
+                'measure_units_id' => $part['measure_units_id'],
+                'units' => $part['units'] * MeasureUnits::find($part['measure_units_id'])['correlation'],
+                'status_part_id' => 1,
+            ]);
         }
         return response('OK', 200);
     }

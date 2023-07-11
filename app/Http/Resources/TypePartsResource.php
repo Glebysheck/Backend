@@ -19,14 +19,26 @@ class TypePartsResource extends JsonResource
      */
     public function toArray($request)
     {
-        $quantity = 0;
+        $units = 0;
         foreach (Part::where('type_parts_id', $this->id)->get()->toArray() as $part)
         {
             if ($part['units'] != null)
             {
-                $quantity += $part['units'];
+                $units += $part['units'];
             }
         }
+
+        if (is_null(Sort::find($this->sort_id)['type_measure_units_id']))
+        {
+            $quantity = Part::where('type_parts_id', $this->id)->whereNull('date_mounting')->count();
+        }
+        else
+        {
+            $quantity = $units / MeasureUnits::where('type_measure_units_id',
+                    Sort::find($this->sort_id)['type_measure_units_id'])
+                    ->first()['correlation'];
+        }
+
         return [
             'id' => $this->id,
             'article' => !is_null($this->article_id) ?
@@ -40,11 +52,7 @@ class TypePartsResource extends JsonResource
                 'шт' : MeasureUnits::where('type_measure_units_id',
                     Sort::find($this->sort_id)['type_measure_units_id'])
                     ->first()['name'],
-            'quantity' => is_null(Sort::find($this->sort_id)['type_measure_units_id']) ?
-                Part::where('type_parts_id', $this->id)->count() :
-                $quantity / MeasureUnits::where('type_measure_units_id',
-                    Sort::find($this->sort_id)['type_measure_units_id'])
-                    ->first()['correlation'],
+            'quantity' => $quantity,
             'list_image' => FilesByPartResource::collection($this->lists),
         ];
     }
