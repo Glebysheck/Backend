@@ -132,6 +132,8 @@ Route::delete('/delete_consumable', 'ListConsumablesController@delete');
 
 Route::post('/add_file_in_service', 'InstructionReferenceController@create');
 
+Route::delete('/delete_file_in_service', 'InstructionReferenceController@delete');
+
 Route::get('/show_service', 'ServiceController@index');
 
 
